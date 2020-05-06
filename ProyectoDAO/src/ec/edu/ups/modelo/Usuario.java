@@ -15,6 +15,20 @@ public class Usuario implements Serializable{
 	public Usuario() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+
+	public Usuario(String cedula, String nombres, String apellidos, String correo, String password) {
+		super();
+		this.cedula = cedula;
+		this.nombres = nombres;
+		this.apellidos = apellidos;
+		this.correo = correo;
+		this.password = password;
+	}
+
+
 
 
 	public String getCedula() {

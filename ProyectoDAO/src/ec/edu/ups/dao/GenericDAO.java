@@ -16,4 +16,6 @@ public interface GenericDAO<T ,ID> {
 
 	public List<T> find();
 
+	int buscar(String email, String contrasena);
+
 }

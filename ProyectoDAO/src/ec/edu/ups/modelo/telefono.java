@@ -89,4 +89,25 @@ public class telefono implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
+
+
+
+	public telefono(int telf_id, String id_user, String numero, String tipo, String operadora) {
+		super();
+		this.telf_id = telf_id;
+		this.id_user = id_user;
+		this.numero = numero;
+		this.tipo = tipo;
+		this.operadora = operadora;
+	}
+	
+	public telefono( String id_user, String numero, String tipo, String operadora) {
+		super();
+		this.id_user = id_user;
+		this.numero = numero;
+		this.tipo = tipo;
+		this.operadora = operadora;
+	}
+
+
 }
