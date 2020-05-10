@@ -10,15 +10,16 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
 /**
- * Servlet Filter implementation class filtro
+ * Servlet Filter implementation class Filtro
  */
-@WebFilter("/iniciarSesion")
-public class filtro implements Filter {
+@WebFilter("/index.html* ")
+
+public class Filtro implements Filter {
 
     /**
      * Default constructor. 
      */
-    public filtro() {
+    public Filtro() {
         // TODO Auto-generated constructor stub
     }
 
@@ -33,9 +34,10 @@ public class filtro implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		long inicio = System.currentTimeMillis();
-		chain.doFilter(request, response);
-		System.out.println("INFO:Tiempo de proceso(" + (System.currentTimeMillis() - inicio)+"ms)");
+		// pass the request along the filter chain
+				long inicio = System.currentTimeMillis();	
+				chain.doFilter(request, response);
+				System.out.print("INFO: Tiempo de Proceso(  "+(System.currentTimeMillis()-inicio) + "  ms)");
 	}
 
 	/**

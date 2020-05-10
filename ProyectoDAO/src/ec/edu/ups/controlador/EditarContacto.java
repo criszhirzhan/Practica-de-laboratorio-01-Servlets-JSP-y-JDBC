@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import ec.edu.ups.dao.DAOFactory;
 import ec.edu.ups.dao.TelefonoDAO;
+import ec.edu.ups.dao.UsuarioDAO;
+import ec.edu.ups.modelo.Usuario;
 import ec.edu.ups.modelo.telefono;
 
 /**
@@ -18,6 +20,7 @@ import ec.edu.ups.modelo.telefono;
 public class EditarContacto extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	telefono telf =null;
+	String idCed = "";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -40,7 +43,7 @@ public class EditarContacto extends HttpServlet {
 		TelefonoDAO telefonoDao = DAOFactory.getFactory().getTelefonoDAO();
 
 		telf = telefonoDao.read(Integer.parseInt(request.getParameter("id")));
-		
+		idCed = telf.getId_user();
 		System.out.print(telf.id_user+" "+telf.operadora+" "+telf.numero);
 		request.setAttribute("telefono", telf);
 		getServletContext().getRequestDispatcher("/Privada/modificar.jsp").forward(request, response);
@@ -65,15 +68,17 @@ public class EditarContacto extends HttpServlet {
 
 		String accion = request.getParameter("modificartelf");
 		TelefonoDAO telefonoDao = DAOFactory.getFactory().getTelefonoDAO();
+		UsuarioDAO usuarioDao = DAOFactory.getFactory().getUsuarioDAO();
+		Usuario usuario = new Usuario();
 
 		if (accion.equals("modificarTelf")) {
-			user = request.getParameter("nombrestext");
 			numero = request.getParameter("numerotxt");
 			tipo = request.getParameter("tipotext");
 			operadora = request.getParameter("operadoratxt");
-
 			
-
+			usuario=usuarioDao.read(idCed);
+			
+			telf.setId_user(idCed);
 			telf.setNumero(numero);
 			telf.setOperadora(operadora);
 			telf.setTipo(tipo);
@@ -84,8 +89,9 @@ public class EditarContacto extends HttpServlet {
 		}
 		
 		try {
-			request.setAttribute("telefono", telefonoDao.find());				
-			getServletContext().getRequestDispatcher("/Privada/index.jsp").forward(request, response);
+			request.setAttribute("telefono", telefonoDao.buscarCedula(idCed));
+			request.setAttribute("usuario", usuario);
+			getServletContext().getRequestDispatcher("/Privada/indexU.jsp").forward(request, response);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

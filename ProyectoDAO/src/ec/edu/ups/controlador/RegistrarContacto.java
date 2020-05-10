@@ -42,34 +42,34 @@ public class RegistrarContacto extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		String user="";
+	
 		String numero="";
 		String tipo = "";
 		String operadora="";
 		
 		telefono telf = new telefono();
-		
+		Usuario user = new Usuario();
 		String accion = request.getParameter("registrartelf");
 		TelefonoDAO telefonoDao = DAOFactory.getFactory().getTelefonoDAO();
-		
+		UsuarioDAO usuarioDao = DAOFactory.getFactory().getUsuarioDAO();
 		if (accion.equals("registrarTelf")) {
 			
-			user = request.getParameter("usr");
+			//user = request.getParameter("usr");
 			numero = request.getParameter("numerotxt");
 			tipo = request.getParameter("tip");
 			operadora = request.getParameter("operadoratxt");
-			
+			user=usuarioDao.read("'"+request.getParameter("ced")+"'");
 			System.out.print(user +" "+tipo);
 			
-			
-			telf = new telefono( user, numero, tipo, operadora);
+			System.out.print("CEDULA:   "+request.getParameter("ced"));
+			telf = new telefono( request.getParameter("ced"), numero, tipo, operadora);
 			
 			telefonoDao.create(telf);
 			
 			try {
-				
-				request.setAttribute("telefono", telefonoDao.find());				
-				getServletContext().getRequestDispatcher("/Privada/index.jsp").forward(request, response);
+				request.setAttribute("usuario", user);
+				request.setAttribute("telefono", telefonoDao.buscarCedula( request.getParameter("ced")));				
+				getServletContext().getRequestDispatcher("/Privada/indexU.jsp").forward(request, response);
 			} catch (Exception e) {
 				// TODO: handle exception
 			}

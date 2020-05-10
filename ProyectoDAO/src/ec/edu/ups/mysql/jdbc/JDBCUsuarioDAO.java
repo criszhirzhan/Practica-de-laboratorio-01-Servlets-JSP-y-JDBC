@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ec.edu.ups.dao.UsuarioDAO;
+import ec.edu.ups.modelo.Contacto;
 import ec.edu.ups.modelo.Usuario;
+import ec.edu.ups.modelo.telefono;
 
 public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, String> implements UsuarioDAO {
 
@@ -29,7 +31,7 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, String> implements U
 	}
 	
 	@Override
-	public int buscar(String email, String contrasena) {
+	public Usuario buscar(String email, String contrasena) {
 		System.out.println("Email: ------------- "+email.toString());
 		int i=0;
 		Usuario usuarioObject = null;
@@ -37,7 +39,7 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, String> implements U
 		try {
 			if (rs != null && rs.next()) {
 				i=1;
-				//usuarioObject = new Usuario (rs.getString("cedula"), rs.getString("nombre"), rs.getString("apellido"),rs.getString("correo"), rs.getString("contrasena"));
+				usuarioObject = new Usuario (rs.getString("cedula"), rs.getString("nombre"), rs.getString("apellido"),rs.getString("correo"), rs.getString("contrasena"));
 			}
 		} catch (SQLException e) {
 			System.out.println(">>>WARNING (JDBCUsuarioDAO:read): " + e.getMessage());
@@ -45,7 +47,7 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, String> implements U
 
 		
 		
-		return i;
+		return usuarioObject;
 	}
 	
 	
@@ -101,5 +103,11 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, String> implements U
 		    System.out.println(str.getCedula() +','+ str.getNombres() +','+str.getApellidos()+','+str.getCorreo());
 		}
 		return list;
+	}
+
+	@Override
+	public List<Contacto> buscarCorreo(String correo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

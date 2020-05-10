@@ -42,7 +42,7 @@ public class EliminarContacto extends HttpServlet {
 		
 		try {
 			request.setAttribute("telefono", telefonoDao.find());				
-			getServletContext().getRequestDispatcher("/Privada/index.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/Privada/indexU.jsp").forward(request, response);
 			
 		} catch (Exception e) {
 			// TODO: handle exception

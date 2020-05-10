@@ -5,7 +5,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ec.edu.ups.dao.DAOFactory;
 import ec.edu.ups.dao.TelefonoDAO;
+import ec.edu.ups.dao.UsuarioDAO;
+import ec.edu.ups.modelo.Contacto;
 import ec.edu.ups.modelo.Usuario;
 import ec.edu.ups.modelo.telefono;
 
@@ -29,7 +32,7 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<telefono, Integer> implement
 		// TODO Auto-generated method stub
 		
 		conexionUno.update("INSERT into telefono (tel_cedula, tel_numero, tel_tipo, tel_operadora) values"
-				+ " ( " + entity.getId_user() + ", '"
+				+ " ( '" + entity.getId_user() + "', '"
 		+ entity.getNumero() + "','"+entity.getTipo()+"','"+entity.getOperadora()+"' )");
 		
 	
@@ -78,6 +81,9 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<telefono, Integer> implement
 		
 		
 	}
+	
+	
+	
 
 	@Override
 	public void update(telefono entity) {
@@ -96,6 +102,7 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<telefono, Integer> implement
 
 	@Override
 	public List<telefono> find() {
+		
 		List<telefono> list = new ArrayList<telefono>();
 		ResultSet rs = conexionUno.query("SELECT * FROM telefono");
 		try {
@@ -112,11 +119,158 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<telefono, Integer> implement
 //		}
 		return list;
 	}
+	
+	public List<Contacto> obtenerCont(){
+		return null;
+
+	}
+	
+	
 
 	@Override
-	public int buscar(String email, String contrasena) {
+	public Usuario buscar(String email, String contrasena) {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
+	
+	
+
+	
+	
+	public List<telefono> buscarCedula(String cedula){
+		List<telefono> list = new ArrayList<telefono>();
+		ResultSet rs = conexionUno.query("SELECT * FROM usuario, telefono WHERE telefono.tel_cedula=usuario.cedula and usuario.cedula="+ cedula);
+		try {
+			while (rs.next()) {
+				list.add(new telefono(rs.getInt("tel_codigo"), rs.getString("tel_cedula"), rs.getString("tel_numero"),rs.getString("tel_tipo"), rs.getString("tel_operadora")));
+			}
+
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCTelefonoDAO:find): " + e.getMessage());
+		}
+		return list;
+	}
+	
+	
+	
+	
+	@Override
+	public List<Contacto> buscarCedInv(String cedula){
+		List<Contacto> listCont = new ArrayList<Contacto>();
+		System.out.print("Consultando.....");
+		
+		List<telefono> list = new ArrayList<telefono>();
+		ResultSet rs = conexionUno.query("SELECT * FROM telefono, usuario where usuario.cedula=telefono.tel_cedula and usuario.cedula="+"'"+cedula+"'");
+		//ResultSet t = null;
+		try {
+			while (rs.next()) {
+				Contacto cont=new Contacto();
+				//list.add(new telefono(rs.getInt("tel_codigo"), rs.getString("tel_cedula"), rs.getString("tel_numero"),rs.getString("tel_tipo"), rs.getString("tel_operadora")));
+				cont.setNumero(rs.getString("tel_numero"));
+				
+				cont.setOperadora(rs.getString("tel_operadora"));
+				
+				cont.setTipo(rs.getString("tel_tipo"));
+				
+				cont.setNombres(rs.getString("nombre"));
+				
+				cont.setApellidos(rs.getString("apellido"));
+				
+				cont.setCorreo(rs.getString("correo"));
+
+				listCont.add(cont);
+				
+			}
+
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCTelefonoDAO:obtenerContacto): " + e.getMessage());
+		}
+		return listCont;
+	}
+	
+	
+	
+
+	@Override
+	public List<Contacto> buscarCorreo(String correo) {
+		List<Contacto> listCont = new ArrayList<Contacto>();
+		System.out.print("Consultando.....");
+		
+		List<telefono> list = new ArrayList<telefono>();
+		ResultSet rs = conexionUno.query("SELECT * FROM telefono, usuario where usuario.cedula=telefono.tel_cedula and usuario.correo="+"'"+ correo+"'");
+		//ResultSet t = null;
+		try {
+			while (rs.next()) {
+				Contacto cont=new Contacto();
+				//list.add(new telefono(rs.getInt("tel_codigo"), rs.getString("tel_cedula"), rs.getString("tel_numero"),rs.getString("tel_tipo"), rs.getString("tel_operadora")));
+				cont.setNumero(rs.getString("tel_numero"));
+				
+				cont.setOperadora(rs.getString("tel_operadora"));
+				
+				cont.setTipo(rs.getString("tel_tipo"));
+				
+				cont.setNombres(rs.getString("nombre"));
+				
+				cont.setApellidos(rs.getString("apellido"));
+				
+				cont.setCorreo(rs.getString("correo"));
+
+				listCont.add(cont);
+				
+			}
+
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCTelefonoDAO:obtenerContacto): " + e.getMessage());
+		}
+		
+		return listCont;
+	
+	}
+
+	@Override
+	public List<Contacto> obtenerContacto() {
+		List<Contacto> listCont = new ArrayList<Contacto>();
+		System.out.print("Consultando.....");
+		
+		//Usuario user = new Usuario();
+		
+		List<telefono> list = new ArrayList<telefono>();
+		ResultSet rs = conexionUno.query("SELECT * FROM telefono, usuario where usuario.cedula=telefono.tel_cedula");
+		//ResultSet t = null;
+		try {
+			while (rs.next()) {
+				Contacto cont=new Contacto();
+				//list.add(new telefono(rs.getInt("tel_codigo"), rs.getString("tel_cedula"), rs.getString("tel_numero"),rs.getString("tel_tipo"), rs.getString("tel_operadora")));
+				cont.setNumero(rs.getString("tel_numero"));
+				
+				cont.setOperadora(rs.getString("tel_operadora"));
+				
+				cont.setTipo(rs.getString("tel_tipo"));
+				
+				cont.setNombres(rs.getString("nombre"));
+				
+				cont.setApellidos(rs.getString("apellido"));
+				
+				cont.setCorreo(rs.getString("correo"));
+				
+				
+				
+				
+				
+				listCont.add(cont);
+				
+			}
+
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCTelefonoDAO:obtenerContacto): " + e.getMessage());
+		}
+		
+		
+
+		return listCont;
+	}
+
+
+	
 
 }

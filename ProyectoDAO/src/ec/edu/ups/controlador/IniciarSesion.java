@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.descriptor.web.LoginConfig;
 
@@ -60,38 +61,44 @@ public class IniciarSesion extends HttpServlet {
 	
 		
 		String accion = request.getParameter("accion");
+		Usuario user = new Usuario();
+		HttpSession sesion = request.getSession(true);
 		
-		if (accion.equals("Ingresar")) {
-			correo = request.getParameter("correo");
-			contrasena = request.getParameter("contrasena");
-			i=usuarioDao.buscar(correo, contrasena);
+		
+		if (sesion.isNew()) {
+		//	out.println("<h1>Gracias por acceder al servidor</h1>");
+			sesion.setAttribute("accesos", 1);
 			
-		}
-		
-		try {
-			if (i>0) {
+			if (accion.equals("Ingresar")) {
+				correo = request.getParameter("correo");
+				contrasena = request.getParameter("contrasena");
+				user=usuarioDao.buscar(correo, contrasena);
 				
-				
-				TelefonoDAO telefonoDao = DAOFactory.getFactory().getTelefonoDAO();
-				//System.out.println(telefonoDao.find().telf_id +','+ str.id_user +','+str.numero+','+str.tipo+','+str.operadora);
-				
-				request.setAttribute("telefono", telefonoDao.find());				
-				getServletContext().getRequestDispatcher("/Privada/index.jsp").forward(request, response);
-			}else {
-				//url="/Public/login.jsp";
-				
-				getServletContext().getRequestDispatcher("/Public/login.jsp").forward(request, response);
 			}
-
 			
-		} catch (Exception e) {
-			
-			// TODO: handle exception
-		}
-		
-		
-		
+			try {
+				if (user!=null) {
+					TelefonoDAO telefonoDao = DAOFactory.getFactory().getTelefonoDAO();
+					//System.out.println(telefonoDao.find().telf_id +','+ str.id_user +','+str.numero+','+str.tipo+','+str.operadora);
+					
+					request.setAttribute("telefono", telefonoDao.buscarCedula(user.getCedula()));
+					request.setAttribute("usuario", user);
+					getServletContext().getRequestDispatcher("/Privada/indexU.jsp").forward(request, response);
+				}else {
+					//url="/Public/login.jsp";
+					
+					getServletContext().getRequestDispatcher("/Public/login.jsp").forward(request, response);
+				}
 
+				
+			} catch (Exception e) {
+				
+				// TODO: handle exception
+			}
+			
+			
+		}else {}
+		
 	}
 
 }

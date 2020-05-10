@@ -64,9 +64,7 @@ public class CrearUsuario extends HttpServlet {
 			
 		}
 		
-		
-		
-		
+		getServletContext().getRequestDispatcher("/Public/login.jsp").forward(request, response);	
 	}
 
 }
