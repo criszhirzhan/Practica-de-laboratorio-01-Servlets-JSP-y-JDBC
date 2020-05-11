@@ -30,7 +30,7 @@
 </head>
 <body class="is-preload">
 	<c:set var="p1" value="${requestScope['telefono']}" />
-
+	<c:set var="p2" value="${requestScope['usuario']}" />
 	<!-- Header -->
 	<div id="header">
 
@@ -40,14 +40,14 @@
 			<div id="logo">
 				<span class="image avatar48"><img
 					src="/ProyectoDAO/config/images/avatar.jpg" alt="" /></span>
-				<h1 id="title">Jane Doe</h1>
-				<p>Hyperspace Engineer</p>
+				<h1 id="title">${p2.nombres} ${p2.apellidos}</h1>
+				<p>${p2.correo}</p>
 			</div>
 
 			<!-- Nav -->
 			<nav id="nav">
 				<ul>
-					<li><a href="/ProyectoDAO/IndexController?id=2"
+					<li><a href="/ProyectoDAO/IndexController?id=2&idU=${p2.cedula}"
 						id="contact-link"><span class="icon solid fa-envelope">Contactos</span></a></li>
 					<li><a href="" id="top-link"><span
 							class="icon solid fa-home">Cerrar sesion</span></a></li>

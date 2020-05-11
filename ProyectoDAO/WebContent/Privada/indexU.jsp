@@ -48,7 +48,7 @@
 			<!-- Nav -->
 			<nav id="nav">
 				<ul>
-					<li><a href="/ProyectoDAO/IndexController?id=2" id="contact-link"><span
+					<li><a href="/ProyectoDAO/IndexController?id=2&idU=${p2.cedula}" id="contact-link"><span
 							class="icon solid fa-envelope">Contactos</span></a></li>
 					<li><a href="" id="top-link"><span
 							class="icon solid fa-home">Cerrar sesion</span></a></li>
@@ -118,9 +118,9 @@
 									<td>${telf.numero}
 									</td>
 									<td><a
-										href="/ProyectoDAO/EditarContacto?id=${telf.telf_id}"
+										href="/ProyectoDAO/EditarContacto?id=${telf.telf_id}&idUser=${p2.cedula}"
 										class="btn btn-warning">Editar</a> <a
-										href="/ProyectoDAO/EliminarContacto?id=${telf.telf_id}"
+										href="/ProyectoDAO/EliminarContacto?id=${telf.telf_id}&idUser=${p2.cedula}"
 										class="btn btn-danger">Eliminar</a></td>
 								</tr>
 

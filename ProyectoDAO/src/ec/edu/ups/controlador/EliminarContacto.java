@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import ec.edu.ups.dao.DAOFactory;
 import ec.edu.ups.dao.TelefonoDAO;
+import ec.edu.ups.dao.UsuarioDAO;
+import ec.edu.ups.modelo.Usuario;
 import ec.edu.ups.modelo.telefono;
 
 /**
@@ -32,15 +34,23 @@ public class EliminarContacto extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
+		UsuarioDAO usuarioDao = DAOFactory.getFactory().getUsuarioDAO();
 		TelefonoDAO telefonoDao = DAOFactory.getFactory().getTelefonoDAO();
 		telefono telf= new telefono();
+		Usuario usuario = new Usuario();
+		
+		String id =request.getParameter("idUser");
 		
 		telf=telefonoDao.read(Integer.parseInt(request.getParameter("id")));
 		
 		telefonoDao.delete(telf);
 		
 		try {
+			usuario=usuarioDao.read(id);
+			
+			
+			
+			request.setAttribute("usuario", usuario);
 			request.setAttribute("telefono", telefonoDao.find());				
 			getServletContext().getRequestDispatcher("/Privada/indexU.jsp").forward(request, response);
 			

@@ -41,10 +41,20 @@ public class EditarContacto extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 
 		TelefonoDAO telefonoDao = DAOFactory.getFactory().getTelefonoDAO();
-
+		UsuarioDAO usuarioDao = DAOFactory.getFactory().getUsuarioDAO();
+		Usuario usuario = new Usuario();
+		
+		String id =request.getParameter("idUser");
+		
 		telf = telefonoDao.read(Integer.parseInt(request.getParameter("id")));
 		idCed = telf.getId_user();
 		System.out.print(telf.id_user+" "+telf.operadora+" "+telf.numero);
+		
+		usuario=usuarioDao.read(id);
+		
+		
+		
+		request.setAttribute("usuario", usuario);
 		request.setAttribute("telefono", telf);
 		getServletContext().getRequestDispatcher("/Privada/modificar.jsp").forward(request, response);
 	}

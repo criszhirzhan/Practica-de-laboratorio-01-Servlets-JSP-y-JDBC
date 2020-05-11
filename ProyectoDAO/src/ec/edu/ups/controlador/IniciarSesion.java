@@ -17,88 +17,79 @@ import ec.edu.ups.dao.TelefonoDAO;
 import ec.edu.ups.dao.UsuarioDAO;
 import ec.edu.ups.modelo.Usuario;
 
-
 /**
  * Servlet implementation class iniciarSesion
  */
-@WebServlet(name = "iniciarSesion", urlPatterns = {"/iniciarSesion"})
+@WebServlet(name = "iniciarSesion", urlPatterns = { "/iniciarSesion" })
 public class IniciarSesion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-    public IniciarSesion() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    
-    
-    @Override
-    public void init() throws 	ServletException{
-    	System.out.print("Se instancia el Servidor...");
-    }
+	public IniciarSesion() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    
-
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
+	@Override
+	public void init() throws ServletException {
+		System.out.print("Se instancia el Servidor...");
 		
 	}
 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	}
 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		response.setContentType("text/html:charset=UTF-8");
-		
+		System.out.print("Iniciar Sesion \n");
+
 		UsuarioDAO usuarioDao = DAOFactory.getFactory().getUsuarioDAO();
 		String correo = "";
 		String contrasena = "";
-		String url=null;
-		int i=0;
-	
-		
+		String url = null;
+		int i = 0;
+
 		String accion = request.getParameter("accion");
 		Usuario user = new Usuario();
 		HttpSession sesion = request.getSession(true);
-		
-		
-		if (sesion.isNew()) {
-		//	out.println("<h1>Gracias por acceder al servidor</h1>");
-			sesion.setAttribute("accesos", 1);
-			
+
+	
+			// out.println("<h1>Gracias por acceder al servidor</h1>");
+			sesion.setAttribute("accesos", sesion.getId());
+			System.out.print("ID sesion: " + String.valueOf(sesion.getId()));
 			if (accion.equals("Ingresar")) {
 				correo = request.getParameter("correo");
 				contrasena = request.getParameter("contrasena");
-				user=usuarioDao.buscar(correo, contrasena);
-				
+				user = usuarioDao.buscar(correo, contrasena);
+
 			}
-			
+
 			try {
-				if (user!=null) {
+				if (user != null) {
 					TelefonoDAO telefonoDao = DAOFactory.getFactory().getTelefonoDAO();
-					//System.out.println(telefonoDao.find().telf_id +','+ str.id_user +','+str.numero+','+str.tipo+','+str.operadora);
-					
+					// System.out.println(telefonoDao.find().telf_id +','+ str.id_user
+					// +','+str.numero+','+str.tipo+','+str.operadora);
+
 					request.setAttribute("telefono", telefonoDao.buscarCedula(user.getCedula()));
 					request.setAttribute("usuario", user);
 					getServletContext().getRequestDispatcher("/Privada/indexU.jsp").forward(request, response);
-				}else {
-					//url="/Public/login.jsp";
-					
+				} else {
+					// url="/Public/login.jsp";
+
 					getServletContext().getRequestDispatcher("/Public/login.jsp").forward(request, response);
 				}
 
-				
 			} catch (Exception e) {
-				
+
 				// TODO: handle exception
 			}
-			
-			
-		}else {}
-		
+
+
 	}
 
 }

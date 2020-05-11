@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import ec.edu.ups.dao.DAOFactory;
 import ec.edu.ups.dao.TelefonoDAO;
@@ -46,6 +47,14 @@ public class RegistrarContacto extends HttpServlet {
 		String numero="";
 		String tipo = "";
 		String operadora="";
+		
+		HttpSession sesion  = request.getSession();
+		
+		
+		System.out.print("ID sesion: "+String.valueOf(sesion.getId()));
+		System.out.print("ID sesionRetornada: "+String.valueOf(sesion.getAttribute("accesos")));
+		
+		
 		
 		telefono telf = new telefono();
 		Usuario user = new Usuario();
