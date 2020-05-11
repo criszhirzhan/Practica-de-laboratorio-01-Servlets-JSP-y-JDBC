@@ -50,7 +50,7 @@
 				<ul>
 					<li><a href="/ProyectoDAO/IndexController?id=2&idU=${p2.cedula}" id="contact-link"><span
 							class="icon solid fa-envelope">Contactos</span></a></li>
-					<li><a href="" id="top-link"><span
+					<li><a href="/ProyectoDAO/CerrarSesion" id="top-link"><span
 							class="icon solid fa-home">Cerrar sesion</span></a></li>
 				</ul>
 			</nav>

@@ -17,7 +17,9 @@ import ec.edu.ups.modelo.telefono;
 /**
  * Servlet implementation class RegistrarContacto
  */
-@WebServlet("/RegistrarContacto")
+
+
+@WebServlet(name = "RegistrarContacto", urlPatterns = { "/RegistrarContacto" })
 public class RegistrarContacto extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -48,11 +50,9 @@ public class RegistrarContacto extends HttpServlet {
 		String tipo = "";
 		String operadora="";
 		
-		HttpSession sesion  = request.getSession();
+		HttpSession sesion = request.getSession();
 		
-		
-		System.out.print("ID sesion: "+String.valueOf(sesion.getId()));
-		System.out.print("ID sesionRetornada: "+String.valueOf(sesion.getAttribute("accesos")));
+		sesion.setAttribute("accesos", sesion.getAttribute("accesos"));
 		
 		
 		

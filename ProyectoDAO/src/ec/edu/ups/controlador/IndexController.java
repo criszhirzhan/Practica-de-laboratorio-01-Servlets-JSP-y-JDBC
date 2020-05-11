@@ -16,7 +16,8 @@ import ec.edu.ups.modelo.Usuario;
 /**
  * Servlet implementation class IndesController
  */
-@WebServlet("/IndexController")
+
+@WebServlet(name = "IndexController", urlPatterns = { "/IndexController" })
 public class IndexController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -39,6 +40,8 @@ public class IndexController extends HttpServlet {
 		HttpSession sesion = request.getSession();
 		sesion.setAttribute("accesos", sesion.getAttribute("accesos"));
 
+		
+		
 		System.out.print("Id sesion IndexController: "+sesion.getAttribute("accesos"));
 		TelefonoDAO telefonoDao = DAOFactory.getFactory().getTelefonoDAO();
 		Usuario usuario = new Usuario();

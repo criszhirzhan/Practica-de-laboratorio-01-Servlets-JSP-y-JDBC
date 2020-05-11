@@ -14,16 +14,23 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class Filter
  */
-@WebFilter(urlPatterns = { "/Filter" }, servletNames = { "IndexController",
-		"EditarContacto", "iniciarSesion", "RegistrarContacto", "Buscar" })
+@WebFilter(
+		urlPatterns = { "/Filter" }, 
+		servletNames = { 
+				"Buscar", 
+				"EditarContacto", 
+				"IndexController", 
+				"iniciarSesion", 
+				"RegistrarContacto"
+		})
 public class Filter implements javax.servlet.Filter {
 
-	/**
-	 * Default constructor.
-	 */
-	public Filter() {
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     * Default constructor. 
+     */
+    public Filter() {
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see Filter#destroy()
@@ -35,8 +42,7 @@ public class Filter implements javax.servlet.Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		long inicio = System.currentTimeMillis();
 		// chain.doFilter(request, response);
 		System.out.print("INFO: Tiempo de Proceso(  " + (System.currentTimeMillis() - inicio) + "  ms)");

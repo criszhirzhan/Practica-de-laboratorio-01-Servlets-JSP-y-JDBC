@@ -47,6 +47,9 @@ public class Buscar extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		TelefonoDAO telefonoDao = DAOFactory.getFactory().getTelefonoDAO();
+		HttpSession sesion = request.getSession();
+		
+		sesion.setAttribute("accesos", sesion.getAttribute("accesos"));
 
 			// out.println("<h1>Gracias por acceder al servidor</h1>");
 			// sesion.setAttribute("accesos", 1);

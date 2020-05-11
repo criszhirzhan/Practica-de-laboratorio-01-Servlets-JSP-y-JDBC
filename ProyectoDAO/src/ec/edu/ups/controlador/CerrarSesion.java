@@ -9,16 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class Login
+ * Servlet implementation class CerrarSesion
  */
-@WebServlet("/Login")
-public class Inicio extends HttpServlet {
+
+
+@WebServlet(name = "CerrarSesion", urlPatterns = { "/CerrarSesion" })
+public class CerrarSesion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Inicio() {
+    public CerrarSesion() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,15 +30,13 @@ public class Inicio extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		HttpSession sesion = request.getSession(true);
-
+		HttpSession sesion = request.getSession();
+		sesion.invalidate();
 		
-		// out.println("<h1>Gracias por acceder al servidor</h1>");
-		sesion.setAttribute("accesos", sesion.getId());
-		
-		System.out.print("Sesion Inicio: "+sesion.getId());
 		getServletContext().getRequestDispatcher("/Public/index.html").forward(request, response);
+		
 	}
 
 	/**
