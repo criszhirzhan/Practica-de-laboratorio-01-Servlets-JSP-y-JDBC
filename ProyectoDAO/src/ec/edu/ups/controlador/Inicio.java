@@ -12,13 +12,13 @@ import javax.servlet.http.HttpSession;
  * Servlet implementation class Login
  */
 @WebServlet("/Login")
-public class Login extends HttpServlet {
+public class Inicio extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Login() {
+    public Inicio() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,7 +36,7 @@ public class Login extends HttpServlet {
 		sesion.setAttribute("accesos", sesion.getId());
 		
 		
-		getServletContext().getRequestDispatcher("/Public/login.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/Public/index.html").forward(request, response);
 	}
 
 	/**

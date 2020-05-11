@@ -39,6 +39,7 @@ public class IndexController extends HttpServlet {
 		HttpSession sesion = request.getSession();
 		sesion.setAttribute("accesos", sesion.getAttribute("accesos"));
 
+		System.out.print("Id sesion IndexController: "+sesion.getAttribute("accesos"));
 		TelefonoDAO telefonoDao = DAOFactory.getFactory().getTelefonoDAO();
 		Usuario usuario = new Usuario();
 		UsuarioDAO usuarioDao = DAOFactory.getFactory().getUsuarioDAO();
@@ -46,7 +47,7 @@ public class IndexController extends HttpServlet {
 
 			if (Integer.parseInt(request.getParameter("id")) == 1) {
 				usuario=usuarioDao.read(request.getParameter("c"));
-	
+	                                          
 				request.setAttribute("idc", request.getParameter("c"));
 				request.setAttribute("usuario", usuario);
 				getServletContext().getRequestDispatcher("/Privada/registrar.jsp").forward(request, response);
