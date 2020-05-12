@@ -90,7 +90,7 @@ public class EditarContacto extends HttpServlet {
 
 		if (accion.equals("modificarTelf")) {
 			numero = request.getParameter("numerotxt");
-			tipo = request.getParameter("tipotext");
+			tipo = request.getParameter("tip");
 			operadora = request.getParameter("operadoratxt");
 			
 			usuario=usuarioDao.read(idCed);

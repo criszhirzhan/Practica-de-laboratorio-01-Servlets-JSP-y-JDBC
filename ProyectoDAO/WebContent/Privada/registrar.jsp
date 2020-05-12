@@ -24,7 +24,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/ProyectoDAO/config/styles/stylesRT.css">
-
+<script type="text/javascript" src="/ProyectoDAO/config/JS/validaciones.js"></script>
 
 </head>
 <body class="is-preload">
@@ -88,28 +88,28 @@
 
 					<div class="contenedor">
 
-						<form action="/ProyectoDAO/RegistrarContacto?ced=${p2}" method="POST">
+						<form action="/ProyectoDAO/RegistrarContacto?ced=${p2}" method="POST" onsubmit="return validarCamposObligatorios()">
 							<div class="container">
 								<h1>Registrar contacto:</h1>
 								<hr>
 
 								<label for="tipo"><b>Tipo</b></label>
 								<div class="container mt-3">
-									<select name="tip" class="custom-select mb-3">
+									<select name="tip" id="seleccion" class="custom-select mb-3">
 										<option selected>Seleccionar</option>
-										<option value="celular">Celular</option>
-										<option value="telefono">Telefono</option>
+										<option value="Celular">Celular</option>
+										<option value="Telefono">Telefono</option>
 									</select>
 								</div>
 
 
-								<label for="numero"><b>Numero</b></label> <input type="text"
-									placeholder="Ingresar el numero" name="numerotxt" required>
+								<label for="numero"><b>Numero</b></label> <input id="numerosID" type="text"
+									placeholder="Ingresar el numero" name="numerotxt" onkeypress="ValidarTelefono(event, 'mensajeTelefono', this)" required><span id="mensajeTelefono"></span>
 
 
 								<label for="operadora"><b>Operadora</b></label> <input
-									type="text" placeholder="Ingresar operadora"
-									name="operadoratxt" required>
+									type="text" id="operadoraID" placeholder="Ingresar operadora"
+									name="operadoratxt" onkeypress="ValidarLetras(event, 'operadoramss', this)" required><span id="operadoramss"></span>
 
 								<hr>
 

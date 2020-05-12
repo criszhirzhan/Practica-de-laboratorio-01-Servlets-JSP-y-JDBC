@@ -133,7 +133,7 @@
 							<c:forEach var="telf" items="${p1}">
 								<tr>
 									<td>${telf.nombres} ${telf.apellidos}</td>
-									<td>${telf.correo}       <a href="mailto:cris@gmail.com"><img width="25px"
+									<td>${telf.correo}       <a href="mailto:${telf.correo} "><img width="25px"
 											height="25px"
 											src="https://img.icons8.com/flat_round/64/000000/secured-letter--v1.png" /></a></td>
 									<td>${telf.tipo}</td>

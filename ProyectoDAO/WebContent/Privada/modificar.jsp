@@ -26,6 +26,7 @@
 
 <link rel="stylesheet"
 	href="/ProyectoDAO/config/styles/stylesRMTelf.css">
+<script type="text/javascript" src="/ProyectoDAO/config/JS/validaciones.js"></script>
 
 </head>
 <body class="is-preload">
@@ -40,14 +41,15 @@
 			<div id="logo">
 				<span class="image avatar48"><img
 					src="/ProyectoDAO/config/images/avatar.jpg" alt="" /></span>
-				<h1 id="title">${p2.nombres} ${p2.apellidos}</h1>
+				<h1 id="title">${p2.nombres}${p2.apellidos}</h1>
 				<p>${p2.correo}</p>
 			</div>
 
 			<!-- Nav -->
 			<nav id="nav">
 				<ul>
-					<li><a href="/ProyectoDAO/IndexController?id=2&idU=${p2.cedula}"
+					<li><a
+						href="/ProyectoDAO/IndexController?id=2&idU=${p2.cedula}"
 						id="contact-link"><span class="icon solid fa-envelope">Contactos</span></a></li>
 					<li><a href="/ProyectoDAO/CerrarSesion" id="top-link"><span
 							class="icon solid fa-home">Cerrar sesion</span></a></li>
@@ -87,17 +89,33 @@
 
 				<div class="contenido">
 					<div class="contenedor">
-						<form action="/ProyectoDAO/EditarContacto" method="POST">
+						<form action="/ProyectoDAO/EditarContacto" method="POST"
+							onsubmit="return validarCamposObligatorios()">
 							<div class="container">
 								<h1>Modificar contacto:</h1>
 								<hr>
-								 <label for="tipo"><b>Tipo</b></label>
-								<input type="text" placeholder="Editar tipo" name="tipotext"
-									value="${p1.tipo}" required> <label for="numero"><b>Numero</b></label>
-								<input type="text" placeholder="Editar numero" name="numerotxt"
-									value="${p1.numero}" required> <label for="operadora"><b>Operadora</b></label>
-								<input type="text" placeholder="Editar operadora"
-									name="operadoratxt" value="${p1.operadora}" required>
+								<label for="tipo"><b>Tipo</b></label>
+
+
+								<div class="container mt-3">
+									<select name="tip" id="seleccion" class="custom-select mb-3">
+										<option selected>${p1.tipo}</option>
+										<option value="Celular">Celular</option>
+										<option value="Telefono">Telefono</option>
+									</select>
+								</div>
+
+
+								<label for="numero"><b>Numero</b></label> <input type="text"
+									id="numerosID" placeholder="Editar numero" name="numerotxt"
+									value="${p1.numero}"
+									onkeypress="ValidarTelefono(event, 'mensajeTelefono', this)"
+									required><span id="mensajeTelefono"></span> <label
+									for="operadora"><b>Operadora</b></label> <input type="text"
+									id="operadoraID" placeholder="Editar operadora"
+									name="operadoratxt" value="${p1.operadora}"
+									onkeypress="ValidarLetras(event, 'operadoramss', this)"
+									required><span id="operadoramss"></span>
 
 								<hr>
 
