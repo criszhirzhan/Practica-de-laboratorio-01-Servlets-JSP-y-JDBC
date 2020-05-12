@@ -35,7 +35,7 @@ public class CerrarSesion extends HttpServlet {
 		HttpSession sesion = request.getSession();
 		sesion.invalidate();
 		
-		getServletContext().getRequestDispatcher("/Public/index.html").forward(request, response);
+		getServletContext().getRequestDispatcher("Login").forward(request, response);
 		
 	}
 
